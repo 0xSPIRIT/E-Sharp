@@ -40,7 +40,7 @@ using namespace std;
 #define MEM_SIZE 1000000
 
 // Might change to std::vector later.
-float stack[MEM_SIZE] = {0};
+float memory[MEM_SIZE] = {0};
 int ind;
 
 int interpret(vector<string> &lines);
@@ -87,59 +87,59 @@ int interpret(vector<string> &lines) {
 	string &tok = tokens[i];
 	
         if (is_float(tok)) {
-	    stack[ind] = stof(tok);
+	    memory[ind] = stof(tok);
 	} else if (tok[0] == TOKEN_ADD) {
 	    if (tokens[i+1][0] == TOKEN_REFERENCE_INDEX) {
 		if (tokens[i+2][0] != TOKEN_CURRENT_INDEX) {
 		    int in = stoi(tokens[i+=2]);
-		    stack[ind] += stack[in];
+		    memory[ind] += memory[in];
 		} else {
-                    stack[ind] += stack[ind];
+                    memory[ind] += memory[ind];
 		}
 	    } else {
-                stack[ind]++;
+                memory[ind]++;
 	    }
 	} else if (tok[0] == TOKEN_SUB) {
 	    if (tokens[i+1][0] == TOKEN_REFERENCE_INDEX) {
 		if (tokens[i+2][0] != TOKEN_CURRENT_INDEX) {
 		    int in = stoi(tokens[i+=2]);
-		    stack[ind] -= stack[in];
+		    memory[ind] -= memory[in];
 		} else {
-                    stack[ind] = 0;
+                    memory[ind] = 0;
 		}
 	    } else {
-                stack[ind]--;
+                memory[ind]--;
 	    }
 	} else if (tok[0] == TOKEN_MULT) {
 	    if (tokens[i+1][0] == TOKEN_REFERENCE_INDEX) {
 		if (tokens[i+2][0] != TOKEN_CURRENT_INDEX) {
 		    int in = stoi(tokens[i+=2]);
-		    stack[ind] *= stack[in];
+		    memory[ind] *= memory[in];
 		} else {
-                    stack[ind] *= stack[ind];
+                    memory[ind] *= memory[ind];
 		}
 	    } else {
-                stack[ind] *= stack[ind];
+                memory[ind] *= memory[ind];
 	    }
 	} else if (tok[0] == TOKEN_DIV) {
 	    if (tokens[i+1][0] == TOKEN_REFERENCE_INDEX) {
 		if (tokens[i+2][0] != TOKEN_CURRENT_INDEX) {
 		    int in = stoi(tokens[i+=2]);
-		    stack[ind] /= stack[in];
+		    memory[ind] /= memory[in];
 		} else {
-                    stack[ind] = 1;
+                    memory[ind] = 1;
 		}
 	    } else {
-                stack[ind] = 1;
+                memory[ind] = 1;
 	    }
 	} else if (tok[0] == TOKEN_MOD) {
 	    int in = stoi(tokens[i+=2]);
-	    stack[ind] = (int) stack[ind] % (int) stack[in];
+	    memory[ind] = (int) memory[ind] % (int) memory[in];
 	} else if (tok[0] == TOKEN_EQUALS) {
 	    int in = stoi(tokens[i+=2]);
-	    stack[ind] = stack[in];
+	    memory[ind] = memory[in];
 	} else if (tok[0] == TOKEN_START_LOOP) {
-	    if (!stack[ind]) {
+	    if (!memory[ind]) {
                 int opened = 1;
 		while (opened) {
 		    i++;
@@ -148,7 +148,7 @@ int interpret(vector<string> &lines) {
 		}
 	    }
 	} else if (tok[0] == TOKEN_END_LOOP) {
-	    if (stack[ind]) {
+	    if (memory[ind]) {
                 int opened = 1;
 		while (opened) {
 		    i--;
@@ -157,16 +157,16 @@ int interpret(vector<string> &lines) {
 		}
 	    }
 	} else if (tok[0] == TOKEN_PRINT) {
-            cout << stack[ind] << endl;
+            cout << memory[ind] << endl;
 	} else if (tok[0] == TOKEN_PRINT_ASCII) {
-            putchar(stack[ind]);
+            putchar(memory[ind]);
 	} else if (tok[0] == TOKEN_INPUT) {
 	    float num;
 	    cin >> num;
 	    if (tokens[i+1][0] != TOKEN_CURRENT_INDEX) {
-		stack[stoi(tokens[++i])] = num;
+		memory[stoi(tokens[++i])] = num;
 	    } else {
-                stack[ind] = num;
+                memory[ind] = num;
 	    }
 	} else if (tok[0] == TOKEN_SET_POINTER) {
 	    if (tokens[i+1][0] != TOKEN_CURRENT_INDEX) {
@@ -179,14 +179,14 @@ int interpret(vector<string> &lines) {
 	} else if (tok[0] == TOKEN_IF) {
 	    float val1, val2;
 	    if (tokens[i+2][0] != TOKEN_CURRENT_INDEX) {
-                val1 = stack[stoi(tokens[i+=2])];
+                val1 = memory[stoi(tokens[i+=2])];
 	    } else {
-                val1 = stack[ind];
+                val1 = memory[ind];
 	    }
 	    if (tokens[i+2][0] != TOKEN_CURRENT_INDEX) {
-                val2 = stack[stoi(tokens[i+=2])];
+                val2 = memory[stoi(tokens[i+=2])];
 	    } else {
-                val2 = stack[ind];
+                val2 = memory[ind];
 	    }
 
 	    if (val1 != val2) {
@@ -235,7 +235,7 @@ int interpret(vector<string> &lines) {
 		    content += '\n';
 		}
 		for (char c: content) {
-                    stack[ind++] = (float) c;
+                    memory[ind++] = (float) c;
 		}
 	    }
 	}
