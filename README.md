@@ -34,7 +34,7 @@ The following are all the commands in the language:
 *          # Squares the current cell.
 
 +&number   # Adds the value at the number'th cell to the current cell.
--&number   # Subtracts the value at the number'th cell to the current cell.
+-&number   # Subtracts the value at the number'th cell from the current cell.
 *&number   # Multiplies the current cell by the number'th cell.
 /&number   # Divides the current cell by the number'th cell.
 %&number   # Modulo's the current cell by the number'th cell.
@@ -59,5 +59,5 @@ The following are all the commands in the language:
 ;            # Prints the value of the current cell.
 ,            # Prints the value of the current cell in ASCII.
 $&num        # Gets the user's input, then stores it in the num'th cell.
-(filename)   # Stores each character from the specified file sequentially, starting from the current cell.
+(filename)   # Stores each character from the file sequentially in the cells, starting from the current cell.
 ```
