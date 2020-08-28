@@ -40,6 +40,10 @@ The following are all the commands in the language:
 %&number   # Modulo's the current cell by the number'th cell.
 =&number   # Sets the current cell to another cell.
 
+# NOTE: When doing &number, you can use ~ in place of a number to get the current cell. Example:
+
++&~        # This adds the current cell to itself, effectively multiplying it by 2.
+
 
 # IF STATEMENT:
 ? &number1 &number2 {
