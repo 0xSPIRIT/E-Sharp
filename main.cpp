@@ -41,7 +41,7 @@ using namespace std;
 
 // Might change to std::vector later.
 float memory[MEM_SIZE] = {0};
-int ind;
+int ind = 0;
 
 int interpret(vector<string> &lines);
 void tokenize(vector<string> &lines, vector<string> &tokens);
@@ -71,15 +71,10 @@ int main(int argc, char **argv) {
 }
 
 int interpret(vector<string> &lines) {
-    ind = 0;
-    
     vector<string> tokens;
     tokenize(lines, tokens);
 
     vector<string> functions;
-
-    int loop_start_index = -1;
-    int loop_iterator = -1;
 
     bool isinif = false;
 
