@@ -15,7 +15,8 @@ You will find some example programs in the examples/ folder. They include:
 - A "Hello, World!" Program;
 - A Simple Calculator;
 - A Fibonacci Sequence Generator;
-- A program that prints the content of a file.
+- A program that prints the content of a file;
+- A rock-paper-scissors game.
 
 I intend to add more example programs.
 
